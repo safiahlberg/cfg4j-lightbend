@@ -8,20 +8,28 @@ import com.typesafe.config.ConfigResolveOptions;
 public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
 
     private final LightbendLoadStrategy loadStrategy;
+    private String prefix;
 
     public LightbendConfigFactoryHandler(
-            LightbendLoadStrategy loadStrategy) {
+            LightbendLoadStrategy loadStrategy, String prefix) {
         this.loadStrategy = loadStrategy;
+        this.prefix = prefix;
     }
 
     @Override
     public Config init() {
-        return loadStrategy.load();
+        final Config defaultConfig = loadStrategy.load();
+
+        if (prefix != null) {
+            return defaultConfig.getConfig(prefix).withFallback(defaultConfig);
+        }
+
+        return defaultConfig;
     }
 
     @Override
     public Config reload() {
-        return loadStrategy.load();
+        return init();
     }
 
     static class DefaultLoadStrategy implements LightbendLoadStrategy {

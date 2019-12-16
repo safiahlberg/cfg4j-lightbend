@@ -6,16 +6,20 @@ import com.typesafe.config.ConfigResolveOptions;
 
 public class LightbendConfigurationSourceBuilder {
 
+    // These variables control how the load strategy is chosen
     private String resourceBasename;
     private ClassLoader classLoader;
     private Config customConfig;
     private ConfigResolveOptions configResolveOptions;
     private ConfigParseOptions configParseOptions;
 
+    // A prefix that can be used or not
+    private String prefix;
+
     public LightbendConfigurationSource build() {
         LightbendLoadStrategy loadStrategy = createLoadStrategy();
 
-        return new LightbendConfigurationSource(new LightbendConfigFactoryHandler(loadStrategy));
+        return new LightbendConfigurationSource(new LightbendConfigFactoryHandler(loadStrategy, prefix));
     }
 
     public LightbendConfigurationSourceBuilder withResourceBasename(String resourceBasename) {
@@ -41,6 +45,59 @@ public class LightbendConfigurationSourceBuilder {
     public LightbendConfigurationSourceBuilder withConfigParseOptions(ConfigParseOptions parseOptions) {
         this.configParseOptions = parseOptions;
         return this;
+    }
+
+    public LightbendConfigurationSourceBuilder withPrefix(String prefix) {
+        this.prefix = prefix;
+        return this;
+    }
+
+    public String getResourceBasename() {
+        return resourceBasename;
+    }
+
+    public void setResourceBasename(String resourceBasename) {
+        this.resourceBasename = resourceBasename;
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
+    public Config getCustomConfig() {
+        return customConfig;
+    }
+
+    public void setCustomConfig(Config customConfig) {
+        this.customConfig = customConfig;
+    }
+
+    public ConfigResolveOptions getConfigResolveOptions() {
+        return configResolveOptions;
+    }
+
+    public void setConfigResolveOptions(ConfigResolveOptions configResolveOptions) {
+        this.configResolveOptions = configResolveOptions;
+    }
+
+    public ConfigParseOptions getConfigParseOptions() {
+        return configParseOptions;
+    }
+
+    public void setConfigParseOptions(ConfigParseOptions configParseOptions) {
+        this.configParseOptions = configParseOptions;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     public boolean isResourceBasenameSet() {
@@ -70,7 +127,7 @@ public class LightbendConfigurationSourceBuilder {
                 this.getClass().getName(), resourceBasename, classLoader, customConfig, configResolveOptions, configParseOptions);
     }
 
-    public LightbendLoadStrategy createLoadStrategy() {
+    LightbendLoadStrategy createLoadStrategy() {
         StrategyType type = createStrategyType();
 
         if (type == null) {
@@ -173,10 +230,6 @@ public class LightbendConfigurationSourceBuilder {
 
         Flags(int w) {
             this.weight = 2 ^ w;
-        }
-
-        public int getWeight() {
-            return weight;
         }
 
         public int getSetWeight(boolean isSet) {

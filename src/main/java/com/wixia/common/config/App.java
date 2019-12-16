@@ -47,7 +47,9 @@ public class App {
         System.out.println(String.format("globalVal=%s", conf.getString("globalVal")));
 
         // Try to integrate Lightbend with cfg4j
-        ConfigurationSource configurationSource = new LightbendConfigurationSourceBuilder().build();
+        ConfigurationSource configurationSource = new LightbendConfigurationSourceBuilder()
+                .withPrefix("pref1")
+                .build();
         ConfigurationProvider configurationProvider = new ConfigurationProviderBuilder()
                 .withConfigurationSource(configurationSource).build();
 
@@ -56,5 +58,6 @@ public class App {
         System.out.printf("With cfg4j. compound1.val1=%s%n", compound1Config.val1());
         System.out.printf("With cfg4j. compound1.val2=%s%n", compound1Config.val2());
         System.out.printf("With cfg4j. compound1.val3=%s%n", compound1Config.val3());
+
     }
 }
