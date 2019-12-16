@@ -4,6 +4,9 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigResolveOptions;
 
+/**
+ *
+ */
 public class LightbendConfigurationSourceBuilder {
 
     // These variables control how the load strategy is chosen
@@ -124,9 +127,19 @@ public class LightbendConfigurationSourceBuilder {
     public String toString() {
         return String.format(
                 "%s {resourceBasename=%s, classLoader=%s, customConfig=%s, configResolveOptions=%s, configParseOptions=%s}",
-                this.getClass().getName(), resourceBasename, classLoader, customConfig, configResolveOptions, configParseOptions);
+                this.getClass().getName(),
+                resourceBasename, classLoader, customConfig, configResolveOptions, configParseOptions);
     }
 
+    /**
+     * This is the mapping between the builder design pattern used in cfg4j and the factory pattern used in
+     * Lightbend.
+     *
+     * This maybe overly complicated but I did not want to use reflection in the
+     * {@link LightbendConfigFactoryHandler} class.
+     *
+     * @return the load strategy for the parameters that are set currently
+     */
     LightbendLoadStrategy createLoadStrategy() {
         StrategyType type = createStrategyType();
 
