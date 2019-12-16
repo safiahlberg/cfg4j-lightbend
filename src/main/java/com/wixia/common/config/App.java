@@ -6,14 +6,13 @@ import com.wixia.testconfig.Compound1Config;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
+import org.cfg4j.source.context.environment.ImmutableEnvironment;
 
 /**
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) {
         Config conf = ConfigFactory.load();
 
         System.out.println(String.format("globalVal=%s", conf.getString("globalVal")));
@@ -49,7 +48,8 @@ public class App
 
         // Try to integrate Lightbend with cfg4j
         ConfigurationSource configurationSource = new LightbendConfigurationSourceBuilder().build();
-        ConfigurationProvider configurationProvider = new ConfigurationProviderBuilder().withConfigurationSource(configurationSource).build();
+        ConfigurationProvider configurationProvider = new ConfigurationProviderBuilder()
+                .withConfigurationSource(configurationSource).build();
 
         Compound1Config compound1Config = configurationProvider.bind("compound1", Compound1Config.class);
 
