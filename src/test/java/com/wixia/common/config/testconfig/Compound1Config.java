@@ -1,4 +1,4 @@
-package com.wixia.testconfig;
+package com.wixia.common.config.testconfig;
 
 public interface Compound1Config {
     String val1();

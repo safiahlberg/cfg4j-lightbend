@@ -2,11 +2,10 @@ package com.wixia.common.config;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import com.wixia.testconfig.Compound1Config;
+import com.wixia.common.config.testconfig.Compound1Config;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
-import org.cfg4j.source.context.environment.ImmutableEnvironment;
 
 /**
  *
