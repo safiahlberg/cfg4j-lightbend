@@ -13,8 +13,13 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
     private String prefix;
 
     public LightbendConfigFactoryHandler(
+            LightbendLoadStrategy loadStrategy) {
+        this.loadStrategy = requireNonNull(loadStrategy, "Argument 'loadStrategy' must not be null");
+    }
+
+    public LightbendConfigFactoryHandler(
             LightbendLoadStrategy loadStrategy, String prefix) {
-        this.loadStrategy = loadStrategy;
+        this(loadStrategy);
         this.prefix = prefix;
     }
 
