@@ -16,7 +16,7 @@ public class LightbendConfigurationSource implements ConfigurationSource {
     private boolean initialized;
 
     LightbendConfigurationSource(ConfigFactoryHandler configFactoryHandler) {
-        this.configFactoryHandler = requireNonNull(configFactoryHandler);
+        this.configFactoryHandler = requireNonNull(configFactoryHandler, "Argument 'configFactoryHandler' must not be null");
         init();
     }
 

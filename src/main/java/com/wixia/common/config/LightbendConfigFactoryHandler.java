@@ -46,7 +46,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ClassLoader classLoader;
 
         ClassLoaderLoadStrategy(ClassLoader classLoader) {
-            this.classLoader = requireNonNull(classLoader);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
         }
 
         @Override
@@ -60,8 +60,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final Config customConfig;
 
         ClassLoaderCustomConfigLoadStrategy(ClassLoader classLoader, Config customConfig) {
-            this.classLoader = requireNonNull(classLoader);
-            this.customConfig = requireNonNull(customConfig);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.customConfig = requireNonNull(customConfig, "Argument 'customConfig' must not be null");
         }
 
         @Override
@@ -77,9 +77,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
 
         ClassLoaderCustomConfigResolveOptionsLoadStrategy(ClassLoader classLoader, Config customConfig,
                                                           ConfigResolveOptions configResolveOptions) {
-            this.classLoader = requireNonNull(classLoader);
-            this.customConfig = requireNonNull(customConfig);
-            this.configResolveOptions = requireNonNull(configResolveOptions);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.customConfig = requireNonNull(customConfig, "Argument 'customConfig' must not be null");
+            this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
         @Override
@@ -93,8 +93,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigParseOptions configParseOptions;
 
         ClassLoaderParseOptionsLoadStrategy(ClassLoader classLoader, ConfigParseOptions configParseOptions) {
-            this.classLoader = requireNonNull(classLoader);
-            this.configParseOptions = requireNonNull(configParseOptions);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.configParseOptions = requireNonNull(configParseOptions, "Argument 'configParseOptions' must not be null");
         }
 
         @Override
@@ -111,9 +111,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         ClassLoaderParseOptionsResolveOptionsLoadStrategy(ClassLoader classLoader,
                                                           ConfigParseOptions configParseOptions,
                                                           ConfigResolveOptions configResolveOptions) {
-            this.classLoader = requireNonNull(classLoader);
-            this.configParseOptions = requireNonNull(configParseOptions);
-            this.configResolveOptions = requireNonNull(configResolveOptions);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.configParseOptions = requireNonNull(configParseOptions, "Argument 'configParseOptions' must not be null");
+            this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
         @Override
@@ -127,8 +127,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions configResolveOptions;
 
         ClassLoaderResolveOptionsLoadStrategy(ClassLoader classLoader, ConfigResolveOptions configResolveOptions) {
-            this.classLoader = requireNonNull(classLoader);
-            this.configResolveOptions = requireNonNull(configResolveOptions);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
         @Override
@@ -142,8 +142,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final String resourceBasename;
 
         ClassLoaderResourceBasenameLoadStrategy(ClassLoader classLoader, String resourceBasename) {
-            this.classLoader = requireNonNull(classLoader);
-            this.resourceBasename = requireNonNull(resourceBasename);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
         }
 
         @Override
@@ -162,10 +162,10 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
                 ClassLoader classLoader, String resourceBasename,
                 ConfigParseOptions parseOptions,
                 ConfigResolveOptions resolveOptions) {
-            this.classLoader = requireNonNull(classLoader);
-            this.resourceBasename = requireNonNull(resourceBasename);
-            this.configParseOptions = requireNonNull(parseOptions);
-            this.configResolveOptions = requireNonNull(resolveOptions);
+            this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
+            this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
+            this.configParseOptions = requireNonNull(parseOptions, "Argument 'parseOptions' must not be null");
+            this.configResolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
         @Override
@@ -194,8 +194,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions resolveOptions;
 
         CustomConfigResolveOptionsLoadStrategy(Config customConfig, ConfigResolveOptions resolveOptions) {
-            this.customConfig = requireNonNull(customConfig);
-            this.resolveOptions = requireNonNull(resolveOptions);
+            this.customConfig = requireNonNull(customConfig, "Argument 'customConfig' must not be null");
+            this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
         @Override
@@ -209,7 +209,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigParseOptions parseOptions;
 
         ParseOptionsLoadStrategy(ConfigParseOptions parseOptions) {
-            this.parseOptions = requireNonNull(parseOptions);
+            this.parseOptions = requireNonNull(parseOptions, "Argument 'parseOptions' must not be null");
         }
 
         @Override
@@ -224,8 +224,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions resolveOptions;
 
         ParseOptionsResolveOptionsLoadStrategy(ConfigParseOptions parseOptions, ConfigResolveOptions resolveOptions) {
-            this.parseOptions = requireNonNull(parseOptions);
-            this.resolveOptions = requireNonNull(resolveOptions);
+            this.parseOptions = requireNonNull(parseOptions, "Argument 'parseOptions' must not be null");
+            this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
         @Override
@@ -239,7 +239,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final String resourceBasename;
 
         ResourceBasenameLoadStrategy(String resourceBasename) {
-            this.resourceBasename = requireNonNull(resourceBasename);
+            this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
         }
 
         @Override
@@ -257,9 +257,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         ResourceBasenameParseOptionsResolveOptionsLoadStrategy(String resourceBasename,
                                                                ConfigParseOptions parseOptions,
                                                                ConfigResolveOptions resolveOptions) {
-            this.resourceBasename = requireNonNull(resourceBasename);
-            this.parseOptions = requireNonNull(parseOptions);
-            this.resolveOptions = requireNonNull(resolveOptions);
+            this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
+            this.parseOptions = requireNonNull(parseOptions, "Argument 'parseOptions' must not be null");
+            this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
         @Override
