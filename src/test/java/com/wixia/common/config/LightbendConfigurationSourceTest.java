@@ -4,11 +4,11 @@ import com.typesafe.config.Config;
 import mockit.*;
 import org.testng.annotations.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 @Test
 public class LightbendConfigurationSourceTest {
@@ -29,6 +29,8 @@ public class LightbendConfigurationSourceTest {
     public void testConstructorAndInit() {
         LightbendConfigurationSource configurationSource = new LightbendConfigurationSource(mockConfigFactoryHandler);
 
+        assertNotNull(configurationSource);
+
         new Verifications() {{
             mockConfigFactoryHandler.init();
             times = 2;
@@ -37,13 +39,13 @@ public class LightbendConfigurationSourceTest {
 
     @Test
     public void testGetConfiguration() {
-        final HashMap configMap = new HashMap();
+        final HashMap<String, String> configMap = new HashMap<>();
         configMap.put("key1", "value1");
         configMap.put("key2", "value2");
 
         new Expectations() {{
             mockConfig.entrySet();
-            result = configMap.entrySet();
+            result = Collections.unmodifiableSet(configMap.entrySet());
         }};
 
         Properties configProperties = tested.getConfiguration(null);
