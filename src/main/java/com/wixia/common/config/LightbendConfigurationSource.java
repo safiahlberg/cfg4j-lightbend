@@ -6,6 +6,8 @@ import org.cfg4j.source.context.environment.Environment;
 
 import java.util.Properties;
 
+import static java.util.Objects.requireNonNull;
+
 public class LightbendConfigurationSource implements ConfigurationSource {
 
     private final ConfigFactoryHandler configFactoryHandler;
@@ -14,7 +16,7 @@ public class LightbendConfigurationSource implements ConfigurationSource {
     private boolean initialized;
 
     LightbendConfigurationSource(ConfigFactoryHandler configFactoryHandler) {
-        this.configFactoryHandler = configFactoryHandler;
+        this.configFactoryHandler = requireNonNull(configFactoryHandler);
         init();
     }
 

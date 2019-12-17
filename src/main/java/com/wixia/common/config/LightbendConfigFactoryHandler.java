@@ -5,6 +5,8 @@ import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigResolveOptions;
 
+import static java.util.Objects.requireNonNull;
+
 public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
 
     private final LightbendLoadStrategy loadStrategy;
@@ -44,7 +46,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ClassLoader classLoader;
 
         ClassLoaderLoadStrategy(ClassLoader classLoader) {
-            this.classLoader = classLoader;
+            this.classLoader = requireNonNull(classLoader);
         }
 
         @Override
@@ -58,8 +60,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final Config customConfig;
 
         ClassLoaderCustomConfigLoadStrategy(ClassLoader classLoader, Config customConfig) {
-            this.classLoader = classLoader;
-            this.customConfig = customConfig;
+            this.classLoader = requireNonNull(classLoader);
+            this.customConfig = requireNonNull(customConfig);
         }
 
         @Override
@@ -75,9 +77,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
 
         ClassLoaderCustomConfigResolveOptionsLoadStrategy(ClassLoader classLoader, Config customConfig,
                                                           ConfigResolveOptions configResolveOptions) {
-            this.classLoader = classLoader;
-            this.customConfig = customConfig;
-            this.configResolveOptions = configResolveOptions;
+            this.classLoader = requireNonNull(classLoader);
+            this.customConfig = requireNonNull(customConfig);
+            this.configResolveOptions = requireNonNull(configResolveOptions);
         }
 
         @Override
@@ -91,8 +93,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigParseOptions configParseOptions;
 
         ClassLoaderParseOptionsLoadStrategy(ClassLoader classLoader, ConfigParseOptions configParseOptions) {
-            this.classLoader = classLoader;
-            this.configParseOptions = configParseOptions;
+            this.classLoader = requireNonNull(classLoader);
+            this.configParseOptions = requireNonNull(configParseOptions);
         }
 
         @Override
@@ -109,9 +111,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         ClassLoaderParseOptionsResolveOptionsLoadStrategy(ClassLoader classLoader,
                                                           ConfigParseOptions configParseOptions,
                                                           ConfigResolveOptions configResolveOptions) {
-            this.classLoader = classLoader;
-            this.configParseOptions = configParseOptions;
-            this.configResolveOptions = configResolveOptions;
+            this.classLoader = requireNonNull(classLoader);
+            this.configParseOptions = requireNonNull(configParseOptions);
+            this.configResolveOptions = requireNonNull(configResolveOptions);
         }
 
         @Override
@@ -125,8 +127,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions configResolveOptions;
 
         ClassLoaderResolveOptionsLoadStrategy(ClassLoader classLoader, ConfigResolveOptions configResolveOptions) {
-            this.classLoader = classLoader;
-            this.configResolveOptions = configResolveOptions;
+            this.classLoader = requireNonNull(classLoader);
+            this.configResolveOptions = requireNonNull(configResolveOptions);
         }
 
         @Override
@@ -140,8 +142,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final String resourceBasename;
 
         ClassLoaderResourceBasenameLoadStrategy(ClassLoader classLoader, String resourceBasename) {
-            this.classLoader = classLoader;
-            this.resourceBasename = resourceBasename;
+            this.classLoader = requireNonNull(classLoader);
+            this.resourceBasename = requireNonNull(resourceBasename);
         }
 
         @Override
@@ -160,10 +162,10 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
                 ClassLoader classLoader, String resourceBasename,
                 ConfigParseOptions parseOptions,
                 ConfigResolveOptions resolveOptions) {
-            this.classLoader = classLoader;
-            this.resourceBasename = resourceBasename;
-            this.configParseOptions = parseOptions;
-            this.configResolveOptions = resolveOptions;
+            this.classLoader = requireNonNull(classLoader);
+            this.resourceBasename = requireNonNull(resourceBasename);
+            this.configParseOptions = requireNonNull(parseOptions);
+            this.configResolveOptions = requireNonNull(resolveOptions);
         }
 
         @Override
@@ -192,8 +194,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions resolveOptions;
 
         CustomConfigResolveOptionsLoadStrategy(Config customConfig, ConfigResolveOptions resolveOptions) {
-            this.customConfig = customConfig;
-            this.resolveOptions = resolveOptions;
+            this.customConfig = requireNonNull(customConfig);
+            this.resolveOptions = requireNonNull(resolveOptions);
         }
 
         @Override
@@ -207,7 +209,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigParseOptions parseOptions;
 
         ParseOptionsLoadStrategy(ConfigParseOptions parseOptions) {
-            this.parseOptions = parseOptions;
+            this.parseOptions = requireNonNull(parseOptions);
         }
 
         @Override
@@ -222,8 +224,8 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final ConfigResolveOptions resolveOptions;
 
         ParseOptionsResolveOptionsLoadStrategy(ConfigParseOptions parseOptions, ConfigResolveOptions resolveOptions) {
-            this.parseOptions = parseOptions;
-            this.resolveOptions = resolveOptions;
+            this.parseOptions = requireNonNull(parseOptions);
+            this.resolveOptions = requireNonNull(resolveOptions);
         }
 
         @Override
@@ -237,7 +239,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         private final String resourceBasename;
 
         ResourceBasenameLoadStrategy(String resourceBasename) {
-            this.resourceBasename = resourceBasename;
+            this.resourceBasename = requireNonNull(resourceBasename);
         }
 
         @Override
@@ -255,9 +257,9 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         ResourceBasenameParseOptionsResolveOptionsLoadStrategy(String resourceBasename,
                                                                ConfigParseOptions parseOptions,
                                                                ConfigResolveOptions resolveOptions) {
-            this.resourceBasename = resourceBasename;
-            this.parseOptions = parseOptions;
-            this.resolveOptions = resolveOptions;
+            this.resourceBasename = requireNonNull(resourceBasename);
+            this.parseOptions = requireNonNull(parseOptions);
+            this.resolveOptions = requireNonNull(resolveOptions);
         }
 
         @Override
