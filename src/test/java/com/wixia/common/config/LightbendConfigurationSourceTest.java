@@ -5,7 +5,6 @@ import mockit.*;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
