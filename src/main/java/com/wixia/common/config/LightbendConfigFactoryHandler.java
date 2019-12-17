@@ -7,6 +7,13 @@ import com.typesafe.config.ConfigResolveOptions;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A helper class for creation of Lightbend {@link Config} instances with
+ * arguments set to {@link LightbendLoadStrategy} classes. These load strategies represent
+ * different arguments and in turn different calls to the overloaded load method in {@link ConfigFactory}
+ *
+ * This is a bridge from the builder design pattern used in cfg4j to the factory pattern used in Lightbend Config.
+ */
 public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
 
     private final LightbendLoadStrategy loadStrategy;
@@ -39,14 +46,25 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
         return init();
     }
 
+    /**
+     * Default load strategy, used when no arguments are set. It will call {@link ConfigFactory#load()}
+     */
     static class DefaultLoadStrategy implements LightbendLoadStrategy {
 
+        /**
+         * Call {@link ConfigFactory#load()}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load();
         }
     }
 
+    /**
+     * Classloader load strategy. Uses a specified classloader. It will call {@link ConfigFactory#load(ClassLoader)}
+     */
     static class ClassLoaderLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
 
@@ -54,12 +72,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.classLoader = requireNonNull(classLoader, "Argument 'classLoader' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader);
         }
     }
 
+    /**
+     * Classloader and custom Config load strategy. Uses a specified classloader. 
+     * It will call {@link ConfigFactory#load(ClassLoader, Config)}
+     */
     static class ClassLoaderCustomConfigLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final Config customConfig;
@@ -69,12 +96,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.customConfig = requireNonNull(customConfig, "Argument 'customConfig' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, Config)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, customConfig);
         }
     }
 
+    /**
+     * Classloader, custom Config and ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, Config, ConfigResolveOptions)}
+     */
     static class ClassLoaderCustomConfigResolveOptionsLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final Config customConfig;
@@ -87,12 +123,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, Config, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, customConfig, configResolveOptions);
         }
     }
 
+    /**
+     * Classloader and ConfigParseOptions load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, ConfigParseOptions)}
+     */
     static class ClassLoaderParseOptionsLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final ConfigParseOptions configParseOptions;
@@ -102,12 +147,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.configParseOptions = requireNonNull(configParseOptions, "Argument 'configParseOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, ConfigParseOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, configParseOptions);
         }
     }
 
+    /**
+     * Classloader, ConfigParseOptions and ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, ConfigParseOptions, ConfigResolveOptions)}
+     */
     static class ClassLoaderParseOptionsResolveOptionsLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final ConfigParseOptions configParseOptions;
@@ -121,12 +175,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, ConfigParseOptions, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, configParseOptions, configResolveOptions);
         }
     }
 
+    /**
+     * Classloader and ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, ConfigResolveOptions)}
+     */
     static class ClassLoaderResolveOptionsLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final ConfigResolveOptions configResolveOptions;
@@ -136,12 +199,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.configResolveOptions = requireNonNull(configResolveOptions, "Argument 'configResolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, configResolveOptions);
         }
     }
 
+    /**
+     * Classloader and resource basename load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, String)}
+     */
     static class ClassLoaderResourceBasenameLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final String resourceBasename;
@@ -151,12 +223,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, String)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, resourceBasename);
         }
     }
 
+    /**
+     * Classloader, resource basename, ConfigParseOptions, ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(ClassLoader, String, ConfigParseOptions, ConfigResolveOptions)}
+     */
     static class ClassLoaderResourceBasenameParseOptionsResolveOptionsLoadStrategy implements LightbendLoadStrategy {
         private final ClassLoader classLoader;
         private final String resourceBasename;
@@ -173,12 +254,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.configResolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ClassLoader, String, ConfigParseOptions, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(classLoader, resourceBasename, configParseOptions, configResolveOptions);
         }
     }
 
+    /**
+     * Custom Config load strategy.
+     * It will call {@link ConfigFactory#load(Config)}
+     */
     static class CustomConfigLoadStrategy implements LightbendLoadStrategy {
 
         private final Config customConfig;
@@ -187,12 +277,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.customConfig = customConfig;
         }
 
+        /**
+         * Call {@link ConfigFactory#load(Config)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(customConfig);
         }
     }
 
+    /**
+     * Custom Config, ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(Config, ConfigResolveOptions)}
+     */
     static class CustomConfigResolveOptionsLoadStrategy implements LightbendLoadStrategy {
 
         private final Config customConfig;
@@ -203,12 +302,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(Config, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(customConfig, resolveOptions);
         }
     }
 
+    /**
+     * ConfigParseOptions load strategy.
+     * It will call {@link ConfigFactory#load(ConfigParseOptions)}
+     */
     static class ParseOptionsLoadStrategy implements LightbendLoadStrategy {
 
         private final ConfigParseOptions parseOptions;
@@ -217,12 +325,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.parseOptions = requireNonNull(parseOptions, "Argument 'parseOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ConfigParseOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(parseOptions);
         }
     }
 
+    /**
+     * ConfigParseOptions and ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(ConfigParseOptions, ConfigResolveOptions)}
+     */
     static class ParseOptionsResolveOptionsLoadStrategy implements LightbendLoadStrategy {
 
         private final ConfigParseOptions parseOptions;
@@ -233,12 +350,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(ConfigParseOptions, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(parseOptions, resolveOptions);
         }
     }
 
+    /**
+     * Resource Basename load strategy.
+     * It will call {@link ConfigFactory#load(String resourceBasename)}
+     */
     static class ResourceBasenameLoadStrategy implements LightbendLoadStrategy {
 
         private final String resourceBasename;
@@ -247,12 +373,21 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.resourceBasename = requireNonNull(resourceBasename, "Argument 'resourceBasename' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(String resourceBasename)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(resourceBasename);
         }
     }
 
+    /**
+     * Resource Basename, ConfigParseOptions, ConfigResolveOptions load strategy.
+     * It will call {@link ConfigFactory#load(String resourceBasename, ConfigParseOptions, ConfigResolveOptions)}
+     */
     static class ResourceBasenameParseOptionsResolveOptionsLoadStrategy implements LightbendLoadStrategy {
 
         private final String resourceBasename;
@@ -267,6 +402,11 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             this.resolveOptions = requireNonNull(resolveOptions, "Argument 'resolveOptions' must not be null");
         }
 
+        /**
+         * Call {@link ConfigFactory#load(String resourceBasename, ConfigParseOptions, ConfigResolveOptions)}
+         *
+         * @return {@link Config} object from Lightbend
+         */
         @Override
         public Config load() {
             return ConfigFactory.load(resourceBasename, parseOptions, resolveOptions);
