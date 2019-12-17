@@ -134,7 +134,7 @@ public class LightbendConfigurationSourceBuilder {
     /**
      * This is the mapping between the builder design pattern used in cfg4j and the factory pattern used in
      * Lightbend.
-     *
+     * <p>
      * This maybe overly complicated but I did not want to use reflection in the
      * {@link LightbendConfigFactoryHandler} class.
      *
@@ -221,7 +221,12 @@ public class LightbendConfigurationSourceBuilder {
     }
 
     public StrategyType createStrategyType() {
-        int result = Flags.DEFAULT.getSetWeight(true);
+        int result = Flags.DEFAULT.getSetWeight(!(
+                isResourceBasenameSet()
+                        || isClassLoaderSet()
+                        || isCustomConfigSet()
+                        || isConfigResolveOptionsSet()
+                        || isConfigParseOptionsSet()));
         result += Flags.RESOURCEBASENAME.getSetWeight(isResourceBasenameSet());
         result += Flags.CLASSLOADER.getSetWeight(isClassLoaderSet());
         result += Flags.CUSTOMCONFIG.getSetWeight(isCustomConfigSet());
@@ -242,7 +247,7 @@ public class LightbendConfigurationSourceBuilder {
         final int weight;
 
         Flags(int w) {
-            this.weight = 2 ^ w;
+            this.weight = (int) Math.pow(2, w);
         }
 
         public int getSetWeight(boolean isSet) {

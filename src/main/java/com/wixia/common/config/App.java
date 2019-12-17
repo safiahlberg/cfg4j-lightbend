@@ -49,6 +49,8 @@ public class App {
         // Try to integrate Lightbend with cfg4j
         ConfigurationSource configurationSource = new LightbendConfigurationSourceBuilder()
                 .withPrefix("pref1")
+                // .withResourceBasename("application.conf")
+                // .withClassLoader(conf.getClass().getClassLoader())
                 .build();
         ConfigurationProvider configurationProvider = new ConfigurationProviderBuilder()
                 .withConfigurationSource(configurationSource).build();
