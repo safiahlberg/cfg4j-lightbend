@@ -60,5 +60,7 @@ public class App {
         System.out.printf("With cfg4j. compound1.val2=%s%n", compound1Config.val2());
         System.out.printf("With cfg4j. compound1.val3=%s%n", compound1Config.val3());
 
+        System.out.printf("With cfg4j. compound1.url1=%s%n", compound1Config.url1().toString());
+        System.out.printf("With cfg4j. compound1.url2=%s%n", compound1Config.url2().toString());
     }
 }
