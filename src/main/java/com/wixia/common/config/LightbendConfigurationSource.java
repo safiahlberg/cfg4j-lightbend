@@ -51,7 +51,7 @@ public class LightbendConfigurationSource implements ConfigurationSource {
         reload();
 
         Properties config = new Properties();
-        lightbendConfig.entrySet().stream().forEach(entry -> config.put(entry.getKey(), entry.getValue()));
+        lightbendConfig.entrySet().stream().forEach(entry -> config.put(entry.getKey(), entry.getValue().unwrapped()));
 
         return config;
     }
