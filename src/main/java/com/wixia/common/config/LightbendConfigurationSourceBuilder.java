@@ -16,13 +16,21 @@ public class LightbendConfigurationSourceBuilder {
     private ConfigResolveOptions configResolveOptions;
     private ConfigParseOptions configParseOptions;
 
+    // These variables controls wether to use a system property or not
+    private String systemPropertyKey;
+    private String systemPropertyValue;
+
     // A prefix that can be used or not
     private String prefix;
 
     public LightbendConfigurationSource build() {
-        LightbendLoadStrategy loadStrategy = createLoadStrategy();
+        final LightbendLoadStrategy loadStrategy = createLoadStrategy();
 
-        return new LightbendConfigurationSource(new LightbendConfigFactoryHandler(loadStrategy, prefix));
+        final LightbendConfigFactoryHandler configFactoryHandler = new LightbendConfigFactoryHandler(loadStrategy, prefix);
+        if (isSystemPropertySet()) {
+            configFactoryHandler.withSystemProperty(systemPropertyKey, systemPropertyValue);
+        }
+        return new LightbendConfigurationSource(configFactoryHandler);
     }
 
     public LightbendConfigurationSourceBuilder withResourceBasename(String resourceBasename) {
@@ -52,6 +60,27 @@ public class LightbendConfigurationSourceBuilder {
 
     public LightbendConfigurationSourceBuilder withPrefix(String prefix) {
         this.prefix = prefix;
+        return this;
+    }
+
+    public LightbendConfigurationSourceBuilder withConfigUrl(String configUrl) {
+        systemPropertyKey = "config.url";
+        systemPropertyValue = configUrl;
+
+        return this;
+    }
+
+    public LightbendConfigurationSourceBuilder withConfigFile(String configFile) {
+        systemPropertyKey = "config.file";
+        systemPropertyValue = configFile;
+
+        return this;
+    }
+
+    public LightbendConfigurationSourceBuilder withConfigResource(String configResource) {
+        systemPropertyKey = "config.resource";
+        systemPropertyValue = configResource;
+
         return this;
     }
 
@@ -122,6 +151,8 @@ public class LightbendConfigurationSourceBuilder {
     public boolean isConfigParseOptionsSet() {
         return configParseOptions != null;
     }
+
+    public boolean isSystemPropertySet() { return systemPropertyKey != null; }
 
     @Override
     public String toString() {

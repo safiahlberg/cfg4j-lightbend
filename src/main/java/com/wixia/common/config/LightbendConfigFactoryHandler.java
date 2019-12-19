@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
  * A helper class for creation of Lightbend {@link Config} instances with
  * arguments set to {@link LightbendLoadStrategy} classes. These load strategies represent
  * different arguments and in turn different calls to the overloaded load method in {@link ConfigFactory}
- *
+ * <p>
  * This is a bridge from the builder design pattern used in cfg4j to the factory pattern used in Lightbend Config.
  */
 public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
@@ -28,6 +28,14 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
             LightbendLoadStrategy loadStrategy, String prefix) {
         this(loadStrategy);
         this.prefix = prefix;
+    }
+
+    public LightbendConfigFactoryHandler withSystemProperty(String systemPropertyKey, String systemPropertyValue) {
+        requireNonNull(systemPropertyKey, "The System Property Key must not be null");
+        ConfigFactory.invalidateCaches();
+
+        System.setProperty(systemPropertyKey, systemPropertyValue);
+        return this;
     }
 
     @Override
@@ -84,7 +92,7 @@ public class LightbendConfigFactoryHandler implements ConfigFactoryHandler {
     }
 
     /**
-     * Classloader and custom Config load strategy. Uses a specified classloader. 
+     * Classloader and custom Config load strategy. Uses a specified classloader.
      * It will call {@link ConfigFactory#load(ClassLoader, Config)}
      */
     static class ClassLoaderCustomConfigLoadStrategy implements LightbendLoadStrategy {
