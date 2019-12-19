@@ -30,6 +30,9 @@ public class App {
         System.out.println(String.format("compound1.val2=%s", conf.getString("compound1.val2")));
         System.out.println(String.format("compound1.val3 with substitution=%s", conf.getString("compound1.val3")));
 
+        System.out.printf("compound1.url1=%s%n", conf.getString("compound1.url1"));
+        System.out.printf("compound1.url2=%s%n", conf.getString("compound1.url2"));
+
         // This would throw an exception
         // System.out.println(String.format("globalVal=%s", conf.getString("globalVal")));
 
@@ -41,6 +44,9 @@ public class App {
         System.out.println(String.format("compound1.val1=%s", conf.getString("compound1.val1")));
         System.out.println(String.format("compound1.val2=%s", conf.getString("compound1.val2")));
         System.out.println(String.format("compound1.val3 with substitution=%s", conf.getString("compound1.val3")));
+
+        System.out.printf("compound1.url1=%s%n", conf.getString("compound1.url1"));
+        System.out.printf("compound1.url2=%s%n", conf.getString("compound1.url2"));
 
         // This can now be done without an exception
         System.out.println(String.format("globalVal=%s", conf.getString("globalVal")));
