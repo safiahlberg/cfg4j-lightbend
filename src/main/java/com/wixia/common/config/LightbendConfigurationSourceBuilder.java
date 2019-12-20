@@ -5,7 +5,8 @@ import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigResolveOptions;
 
 /**
- *
+ * Builder for {@link LightbendConfigurationSource}. It initializes and keeps the
+ * parameters (configuration) that are used to configure the LightbendConfigurationSource.
  */
 public class LightbendConfigurationSourceBuilder {
 
@@ -23,6 +24,11 @@ public class LightbendConfigurationSourceBuilder {
     // A prefix that can be used or not
     private String prefix;
 
+    /**
+     * Build a {@link LightbendConfigurationSource} using this builder's configuration parameters.
+     *
+     * @return new {@link LightbendConfigurationSource}
+     */
     public LightbendConfigurationSource build() {
         final LightbendLoadStrategy loadStrategy = createLoadStrategy();
 
@@ -33,36 +39,102 @@ public class LightbendConfigurationSourceBuilder {
         return new LightbendConfigurationSource(configFactoryHandler);
     }
 
+    /**
+     * Set the resource basename for Lightbend Config
+     *
+     * (see: https://doc.akka.io/docs/akka/current/general/configuration.html#reading-configuration-from-a-custom-location
+     * and {@link com.typesafe.config.ConfigFactory#load(String)})
+     *
+     * @param resourceBasename name (optionally without extension) of a resource on classpath
+     * @return this builder with resource basename set to {@code resourceBasename}
+     */
     public LightbendConfigurationSourceBuilder withResourceBasename(String resourceBasename) {
         this.resourceBasename = resourceBasename;
         return this;
     }
 
+    /**
+     * Set the Class Loader to use for Lightbend Config
+     *
+     * (see: https://doc.akka.io/docs/akka/current/general/configuration.html#a-word-about-classloaders
+     * and {@link com.typesafe.config.ConfigFactory#load(ClassLoader)})
+     *
+     * @param classLoader class loader for finding resources
+     * @return this builder with {@link ClassLoader} set to {@code classLoader}
+     */
     public LightbendConfigurationSourceBuilder withClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
         return this;
     }
 
+    /**
+     * Set the custom configuration to use for Lightbend Config
+     *
+     * (see: https://doc.akka.io/docs/akka/current/general/configuration.html#where-configuration-is-read-from
+     * and {@link com.typesafe.config.ConfigFactory#load(Config)}
+     *
+     * @param config the application's portion of the configuration
+     * @return this builder with {@link Config} set to {@code config}
+     */
     public LightbendConfigurationSourceBuilder withConfig(Config config) {
         this.customConfig = config;
         return this;
     }
 
-    public LightbendConfigurationSourceBuilder withConfigResolveOptions(ConfigResolveOptions resolveOptions) {
+    /**
+     * Like {@link LightbendConfigurationSourceBuilder#withConfig(Config)} but allows you
+     * to specify {@link ConfigResolveOptions}
+     *
+     * (see: {@link com.typesafe.config.ConfigFactory#load(Config, ConfigResolveOptions)}
+     * and {@link ConfigResolveOptions})
+     *
+     * @param config the application's portion of the configuration
+     * @param resolveOptions options for resolving the assembled config stack
+     * @return this builder with {@link Config} set to {@code config} and {@link ConfigResolveOptions} set to {@code resolveOptions}
+     */
+    public LightbendConfigurationSourceBuilder withConfigResolveOptions(
+            Config config,
+            ConfigResolveOptions resolveOptions) {
+        this.customConfig = config;
         this.configResolveOptions = resolveOptions;
         return this;
     }
 
+    /**
+     * Set the parse options
+     *
+     * (see: {@link ConfigParseOptions} and
+     * {@link com.typesafe.config.ConfigFactory#load(ConfigParseOptions)}
+     *
+     * @param parseOptions Options for parsing resources
+     * @return this builder with {@link ConfigParseOptions} set to {@code parseOptions}
+     */
     public LightbendConfigurationSourceBuilder withConfigParseOptions(ConfigParseOptions parseOptions) {
         this.configParseOptions = parseOptions;
         return this;
     }
 
+    /**
+     * Set the prefix to use when parsing the configuration information. This is used instead of (or together with)
+     * the environment functionality in cfg4j.
+     *
+     * @param prefix the string representation that is used in the configuration file as a prefix to configurations
+     * @return this builder with prefix set to {@code prefix}
+     */
     public LightbendConfigurationSourceBuilder withPrefix(String prefix) {
         this.prefix = prefix;
         return this;
     }
 
+    /**
+     * Sets the URL that the configuration gets loaded from, using Lightbend Config's
+     * way of directing load source, using system properties
+     *
+     * (See: https://doc.akka.io/docs/akka/current/general/configuration.html#reading-configuration-from-a-custom-location)
+     *
+     * @param configUrl the URL pointing to a configuration resource
+     * @return this builder initialised to load configuration from an URL
+     */
     public LightbendConfigurationSourceBuilder withConfigUrl(String configUrl) {
         systemPropertyKey = "config.url";
         systemPropertyValue = configUrl;
@@ -70,6 +142,15 @@ public class LightbendConfigurationSourceBuilder {
         return this;
     }
 
+    /**
+     * Sets the file that the configuration gets loaded from, using Lightbend Config's
+     * way of directing load source, using system properties
+     *
+     * (See: https://doc.akka.io/docs/akka/current/general/configuration.html#reading-configuration-from-a-custom-location)
+     *
+     * @param configFile the file pointer to a configuration resource
+     * @return this builder initialised to load configuration from a file
+     */
     public LightbendConfigurationSourceBuilder withConfigFile(String configFile) {
         systemPropertyKey = "config.file";
         systemPropertyValue = configFile;
@@ -77,6 +158,15 @@ public class LightbendConfigurationSourceBuilder {
         return this;
     }
 
+    /**
+     * Sets the resource that the configuration gets loaded from, using Lightbend Config's
+     * way of directing load source, using system properties
+     *
+     * (See: https://doc.akka.io/docs/akka/current/general/configuration.html#reading-configuration-from-a-custom-location)
+     *
+     * @param configResource the resource pointer to a configuration resource
+     * @return this builder initialised to load configuration from a resource
+     */
     public LightbendConfigurationSourceBuilder withConfigResource(String configResource) {
         systemPropertyKey = "config.resource";
         systemPropertyValue = configResource;
