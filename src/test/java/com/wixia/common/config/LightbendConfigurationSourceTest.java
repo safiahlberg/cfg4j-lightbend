@@ -1,6 +1,7 @@
 package com.wixia.common.config;
 
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigValue;
 import mockit.*;
 import org.testng.annotations.Test;
 
@@ -17,8 +18,6 @@ public class LightbendConfigurationSourceTest {
     LightbendConfigurationSource tested;
     @Injectable
     ConfigFactoryHandler mockConfigFactoryHandler;
-    @Mocked
-    Config mockConfig;
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testConstructorWithNull() {
@@ -34,32 +33,6 @@ public class LightbendConfigurationSourceTest {
         new Verifications() {{
             mockConfigFactoryHandler.init();
             times = 2;
-        }};
-    }
-
-    @Test
-    public void testGetConfiguration() {
-        final HashMap<String, String> configMap = new HashMap<>();
-        configMap.put("key1", "value1");
-        configMap.put("key2", "value2");
-
-        new Expectations() {{
-            mockConfig.entrySet();
-            result = Collections.unmodifiableSet(configMap.entrySet());
-        }};
-
-        Properties configProperties = tested.getConfiguration(null);
-
-        assertTrue(configProperties.containsKey("key1"));
-        assertTrue(configProperties.containsKey("key2"));
-        assertEquals(configProperties.size(), 2);
-
-        new Verifications() {{
-            mockConfigFactoryHandler.reload();
-            times = 1;
-
-            mockConfig.entrySet();
-            times = 1;
         }};
     }
 
