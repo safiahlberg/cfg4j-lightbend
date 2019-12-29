@@ -17,7 +17,7 @@ public class LightbendConfigurationSourceBuilder {
     private ConfigResolveOptions configResolveOptions;
     private ConfigParseOptions configParseOptions;
 
-    // These variables controls wether to use a system property or not
+    // These variables controls whether to use a system property or not
     private String systemPropertyKey;
     private String systemPropertyValue;
 

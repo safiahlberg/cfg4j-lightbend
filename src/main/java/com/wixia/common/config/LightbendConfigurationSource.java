@@ -38,7 +38,7 @@ public class LightbendConfigurationSource implements ConfigurationSource {
      * (Re)loads the configuration ({@link Config}) using Lightbend, and converts it to a
      * local {@link Properties} object.
      *
-     * @param environment {@Link org.cfg4j.source.context.environment.Environment} not used
+     * @param environment {@link org.cfg4j.source.context.environment.Environment} not used
      * @return the populated {@link Properties} object
      */
     @Override

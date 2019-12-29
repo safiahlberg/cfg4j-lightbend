@@ -1,15 +1,11 @@
 package com.wixia.common.config;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigValue;
-import mockit.*;
+import mockit.Injectable;
+import mockit.Tested;
+import mockit.Verifications;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Properties;
-
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
 
 @Test
 public class LightbendConfigurationSourceTest {
