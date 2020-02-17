@@ -6,7 +6,7 @@
 
   <groupId>wixia-common</groupId>
   <artifactId>cfg4j-lightbend</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>cfg4j-lightbend</name>
 
